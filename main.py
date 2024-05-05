@@ -4,10 +4,10 @@ import os
 import subprocess
 
 
-p = os.path.abspath('BallGame.exe')
+p = os.path.abspath('BallGame.py')
 def Start():
     window.destroy()
-    subprocess.call(p)
+    subprocess.run(["python", "BallGame.py"])
 
 path = "assets/Background1.png"
 
