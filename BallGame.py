@@ -24,14 +24,22 @@ count = 0
 count1 = 0
 count2 = 0
 font.init()
-font = font.Font(None, 70)
-counter = font.render(str(count), True, (0, 0, 0))
-gameover = font.render("Game Over!", True, (0, 0, 0))
+font1 = font.Font(None, 70)
+font2 = font.Font(None, 45)
+counter = font1.render(str(count), True, (0, 0, 0))
+gameover = font1.render("Game Over!", True, (0, 0, 0))
+gameover1 = font2.render("C - close", True, (0, 0, 0))
 
 
 # Игровой таймер
 clock = time.Clock()
 FPS = 60
+
+
+# Прочтение настроек
+optionPP = open('options/PlayerP.txt')
+OPP = optionPP.read()
+optionPP.close()
 
 
 # Класс GameSprite
@@ -113,7 +121,7 @@ class player(GameSprite):
                 enemy.rect.y = 1100
                 count += 1
                 count1 += 1
-                counter = font.render(str(count), True, (0, 0, 0))
+                counter = font1.render(str(count), True, (0, 0, 0))
                 countSuper += 1
             if enemy.infected == True and self.infected == True:
                 countSuper += 1
@@ -121,7 +129,7 @@ class player(GameSprite):
                 enemy.rect.y = 1200
                 count2 += 1
                 count += 1
-                counter = font.render(str(count), True, (0, 0, 0))
+                counter = font1.render(str(count), True, (0, 0, 0))
 
 class enemy(GameSprite):
     def update(self):
@@ -149,8 +157,13 @@ class enemy(GameSprite):
             global count1
             count1 += 1
 
-Player = player("assets/Player.png", 224, 224, 32, False)
-PlayerSuper = player("assets/PlayerSuper.png", 900, 900, 32, True)
+
+if OPP == "0":
+    Player = player("assets/Player.png", 224, 224, 32, False)
+    PlayerSuper = player("assets/PlayerSuper.png", 900, 900, 32, True)
+if OPP == "1":
+    Player = player("assets/PlayerP.png", 224, 224, 32, False)
+    PlayerSuper = player("assets/PlayerSuperP.png", 900, 900, 32, True)
 Enemy = enemy("assets/Enemy.png", 128, 128, 32, False)
 Enemy1 = enemy("assets/Enemy1.png", 320, 320, 32, False)
 Enemy2 = enemy("assets/Enemy2.png", 320, 128, 32, True)
@@ -225,6 +238,7 @@ while game:
     window.blit(counter, (10, 10))
     if GameOver == 1:
         window.blit(gameover, (125, 200))
+        window.blit(gameover1, (200, 250))
 
     display.update()
     clock.tick(FPS)
