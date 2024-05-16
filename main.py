@@ -15,7 +15,12 @@ def Tutorial():
     window.destroy()
     subprocess.run(["python", "Tutorial.py"])
 
-path = "assets/Background1.png"
+p = os.path.abspath('Options.py')
+def Options():
+    window.destroy()
+    subprocess.run(["python", "Options.py"])
+
+path = "assets/Bigger_assets/Background.png"
 
 
 ''' Создание окна '''
@@ -42,9 +47,10 @@ canvas.create_window((205, 255), anchor="nw", window=button, width=100, height=5
 button = tk.Button(window, text='Выход', command=window.quit)
 canvas.create_window((205, 355), anchor="nw", window=button, width=100, height=50)
 
-button = tk.Button(window, text='Настройки', command=window.quit)
+button = tk.Button(window, text='Настройки', command=Options)
 canvas.create_window((405, 455), anchor="nw", window=button, width=100, height=50)
 
 canvas.create_text(255, 100, text="Ball Game", fill="Red", font="Verdana 30")
+
 
 window.mainloop()

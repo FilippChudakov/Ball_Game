@@ -1,7 +1,15 @@
 from os import environ
+import pygame
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 from pygame import *
 from random import randint
+import os
+import subprocess
+
+
+p = os.path.abspath('main.py')
+def Menu():
+    subprocess.run(["python", "main.py"])
 
 
 # Окно игры
@@ -17,6 +25,7 @@ display.set_icon(pygame_icon)
 
 
 # Текст
+menu = False
 GameOver = 0
 game = None
 countSuper = 0
@@ -29,6 +38,7 @@ font2 = font.Font(None, 45)
 counter = font1.render(str(count), True, (0, 0, 0))
 gameover = font1.render("Game Over!", True, (0, 0, 0))
 gameover1 = font2.render("C - close", True, (0, 0, 0))
+gameover2 = font2.render("M - menu", True, (0, 0, 0))
 
 
 # Игровой таймер
@@ -87,6 +97,10 @@ class player(GameSprite):
             GameOver = 0
         if keys[K_c]:
             global game
+            game = False
+        elif keys[K_m]:
+            global menu
+            menu = True
             game = False
 
     def SwitchPl(self, plsup):
@@ -158,12 +172,15 @@ class enemy(GameSprite):
             count1 += 1
 
 
-if OPP == "0":
+if OPP == "False":
     Player = player("assets/Player.png", 224, 224, 32, False)
     PlayerSuper = player("assets/PlayerSuper.png", 900, 900, 32, True)
-if OPP == "1":
+if OPP == "True":
     Player = player("assets/PlayerP.png", 224, 224, 32, False)
     PlayerSuper = player("assets/PlayerSuperP.png", 900, 900, 32, True)
+else:
+    Player = player("assets/Player.png", 224, 224, 32, False)
+    PlayerSuper = player("assets/PlayerSuper.png", 900, 900, 32, True)
 Enemy = enemy("assets/Enemy.png", 128, 128, 32, False)
 Enemy1 = enemy("assets/Enemy1.png", 320, 320, 32, False)
 Enemy2 = enemy("assets/Enemy2.png", 320, 128, 32, True)
@@ -180,65 +197,71 @@ while game:
         if e.type == QUIT:
             game = False
 
-    window.blit(background, (0, 0))
+    if game:
+        window.blit(background, (0, 0))
 
-    Enemy.reset()
-    Enemy1.reset()
-    Player.reset()
-    Enemy2.reset()
-    Enemy3.reset()
-    PlayerSuper.reset()
+        Enemy.reset()
+        Enemy1.reset()
+        Player.reset()
+        Enemy2.reset()
+        Enemy3.reset()
+        PlayerSuper.reset()
 
-    if sec == 15:
-        Enemy.update()
-        Enemy1.update()
-        Enemy2.update()
-        Enemy3.update()
-        Player.update()
-        PlayerSuper.update()
-        Player.Eat(Enemy)
-        Player.Eat(Enemy1)
-        Player.Eat(Enemy2)
-        Player.Eat(Enemy3)
-        PlayerSuper.Eat(Enemy)
-        PlayerSuper.Eat(Enemy1)
-        PlayerSuper.Eat(Enemy2)
-        PlayerSuper.Eat(Enemy3)
-        Enemy2.Eat(Enemy)
-        Enemy2.Eat(Enemy1)
-        Enemy3.Eat(Enemy)
-        Enemy3.Eat(Enemy1)
-        Player.SwitchPl(PlayerSuper)
-        sec = 0
-    else:
-        sec += 1
-
-    if count1 == 2:
-        if sec1 == 90:
-            Enemy.rect.x = 128
-            Enemy.rect.y = 128
-            Enemy1.rect.x = 320
-            Enemy1.rect.y = 320
-            count1 = 0
-            sec1 = 0
+        if sec == 15:
+            Enemy.update()
+            Enemy1.update()
+            Enemy2.update()
+            Enemy3.update()
+            Player.update()
+            PlayerSuper.update()
+            Player.Eat(Enemy)
+            Player.Eat(Enemy1)
+            Player.Eat(Enemy2)
+            Player.Eat(Enemy3)
+            PlayerSuper.Eat(Enemy)
+            PlayerSuper.Eat(Enemy1)
+            PlayerSuper.Eat(Enemy2)
+            PlayerSuper.Eat(Enemy3)
+            Enemy2.Eat(Enemy)
+            Enemy2.Eat(Enemy1)
+            Enemy3.Eat(Enemy)
+            Enemy3.Eat(Enemy1)
+            Player.SwitchPl(PlayerSuper)
+            sec = 0
         else:
-            sec1 += 1
+            sec += 1
 
-    if count2 == 2:
-        if sec2 == 240:
-            Enemy2.rect.x = 320
-            Enemy2.rect.y = 128
-            Enemy3.rect.x = 128
-            Enemy3.rect.y = 320
-            count2 = 0
-            sec2 = 0
-        else:
-            sec2 += 1
+        if count1 == 2:
+            if sec1 == 90:
+                Enemy.rect.x = 128
+                Enemy.rect.y = 128
+                Enemy1.rect.x = 320
+                Enemy1.rect.y = 320
+                count1 = 0
+                sec1 = 0
+            else:
+                sec1 += 1
 
-    window.blit(counter, (10, 10))
-    if GameOver == 1:
-        window.blit(gameover, (125, 200))
-        window.blit(gameover1, (200, 250))
+        if count2 == 2:
+            if sec2 == 240:
+                Enemy2.rect.x = 320
+                Enemy2.rect.y = 128
+                Enemy3.rect.x = 128
+                Enemy3.rect.y = 320
+                count2 = 0
+                sec2 = 0
+            else:
+                sec2 += 1
+
+        window.blit(counter, (10, 10))
+        if GameOver == 1:
+            window.blit(gameover, (125, 200))
+            window.blit(gameover1, (200, 250))
+            window.blit(gameover2, (200, 280))
 
     display.update()
     clock.tick(FPS)
+
+pygame.quit()
+if menu == True:
+    Menu()

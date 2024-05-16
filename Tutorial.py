@@ -4,19 +4,32 @@ import os
 import subprocess
 
 
+''' Прочтение настроек '''
+optionPP = open('options/PlayerP.txt')
+OPP = optionPP.read()
+optionPP.close()
+
+
 ''' Создание функций и путей к картинкам '''
 p = os.path.abspath('main.py')
 def Menu():
     window.destroy()
     subprocess.run(["python", "main.py"])
 
-path = "assets/Background1.png"
-path1 = "assets/Tutorial_assets/Player.png"
-path2 = "assets/Tutorial_assets/PlayerSuper.png"
-path3 = "assets/Tutorial_assets/Enemy.png"
-path4 = "assets/Tutorial_assets/Enemy1.png"
-path5 = "assets/Tutorial_assets/Enemy2.png"
-path6 = "assets/Tutorial_assets/Enemy3.png"
+path = "assets/Bigger_assets/Background.png"
+if OPP == "False":
+    path1 = "assets/Bigger_assets/Player.png"
+    path2 = "assets/Bigger_assets/PlayerSuper.png"
+if OPP == "True":
+    path1 = "assets/Bigger_assets/PlayerP.png"
+    path2 = "assets/Bigger_assets/PlayerSuperP.png"
+else:
+    path1 = "assets/Bigger_assets/Player.png"
+    path2 = "assets/Bigger_assets/PlayerSuper.png"
+path3 = "assets/Bigger_assets/Enemy.png"
+path4 = "assets/Bigger_assets/Enemy1.png"
+path5 = "assets/Bigger_assets/Enemy2.png"
+path6 = "assets/Bigger_assets/Enemy3.png"
 
 
 ''' Создание окна '''
