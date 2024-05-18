@@ -70,6 +70,14 @@ canvas.create_text(256, 166, text="<-- Это тоже вы\n управлени
 canvas.create_text(346, 226, text="<-- Это враги (еда)\n безобидные ничего не могут вам сделать", fill="Red", font="Verdana 10")
 canvas.create_text(296, 290, text="<-- Это враги (опасные)\n опасные могут вас съесть", fill="Red", font="Verdana 10")
 
+canvas.create_text(280, 380, text="Правила:"
+                                  "\nВы играете за зелёный круг ваша задача есть другие круги"
+                                  "\nно фиолетовый и жёлтые круги могут съесть вас"
+                                  "\nа так же если вы съедите 4 круга вы сможете"
+                                  "\nсъесть 3 любых круга."
+                                  "\nЗа фиолетовый и жёлтые круги вы получите"
+                                  "\nв два раза больше чем за других", fill="Red", font="Verdana 10")
+
 button = tk.Button(window, text='Выход в меню', command=Menu)
 canvas.create_window((205, 455), anchor="nw", window=button, width=100, height=50)
 

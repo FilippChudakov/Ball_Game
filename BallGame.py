@@ -112,8 +112,8 @@ class player(GameSprite):
             self.rect.y = 1000
             countSuper = -4
         elif countSuper == -1:
-            self.rect.x = 224
-            self.rect.y = 224
+            self.rect.x = plsup.rect.x
+            self.rect.y = plsup.rect.y
             plsup.rect.x = 900
             plsup.rect.y = 900
             countSuper += 1
@@ -142,7 +142,7 @@ class player(GameSprite):
                 enemy.rect.x = 1200
                 enemy.rect.y = 1200
                 count2 += 1
-                count += 1
+                count += 2
                 counter = font1.render(str(count), True, (0, 0, 0))
 
 class enemy(GameSprite):
